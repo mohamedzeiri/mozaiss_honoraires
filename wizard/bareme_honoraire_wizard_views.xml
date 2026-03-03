@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bareme_honoraire_wizard_form" model="ir.ui.view">
+        <field name="name">bareme.honoraire.wizard.form</field>
+        <field name="model">bareme.honoraire.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Barème Commissariat - Honoraires CAC">
+                <sheet>
+                    <!-- En-tête -->
+                    <div class="oe_title">
+                        <h2>Barème Commissariat</h2>
+                        <p class="text-muted">
+                            Saisissez les montants pour calculer automatiquement les honoraires CAC.
+                        </p>
+                    </div>
+
+                    <group>
+                        <field name="move_id" invisible="1"/>
+                    </group>
+
+                    
+                    <div class="row mt-3">
+
+                        <!-- ── Bilan ── -->
+                        <div class="col-lg-4">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white fw-bold">
+                                    📊 Bilan
+                                </div>
+                                <div class="card-body">
+                                    <group>
+                                        <field name="total_bilan"
+                                               string="Total Net Bilan (MDT)"
+                                               widget="float"
+                                               digits="[16,3]"/>
+                                        <field name="amortissements"
+                                               string="+ Amortissements (MDT)"
+                                               widget="float"
+                                               digits="[16,3]"/>
+                                        <field name="provisions"
+                                               string="+ Provisions (MDT)"
+                                               widget="float"
+                                               digits="[16,3]"/>
+                                        <field name="total_brut_bilan"
+                                               string="Total Brut Bilan (MDT)"
+                                               readonly="1"
+                                               widget="float"
+                                               digits="[16,3]"
+                                               class="fw-bold text-primary"/>
+                                    </group>
+                                    <separator string="Honoraires Bilan"/>
+                                    <group>
+                                        <field name="plafond_bilan"
+                                               string="Plafond (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"/>
+                                        <field name="honor_bilan"
+                                               string="Honoraire (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"
+                                               class="fw-bold text-success"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── Produits TTC ── -->
+                        <div class="col-lg-4">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning fw-bold">
+                                    🏷️ Produits TTC
+                                </div>
+                                <div class="card-body">
+                                    <group>
+                                        <field name="total_produit"
+                                               string="Total Produit (MDT)"
+                                               widget="float"
+                                               digits="[16,3]"/>
+                                    </group>
+                                    <separator string="Honoraires Produits"/>
+                                    <group>
+                                        <field name="plafond_produit"
+                                               string="Plafond (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"/>
+                                        <field name="honor_produit"
+                                               string="Honoraire (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"
+                                               class="fw-bold text-success"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ── Effectif Moyen ── -->
+                        <div class="col-lg-4">
+                            <div class="card border-info">
+                                <div class="card-header bg-info text-white fw-bold">
+                                    👥 Effectif Moyen
+                                </div>
+                                <div class="card-body">
+                                    <group>
+                                        <field name="total_effectif"
+                                               string="Total Effectif"
+                                               widget="float"
+                                               digits="[16,0]"/>
+                                    </group>
+                                    <separator string="Honoraires Effectif Moyen"/>
+                                    <group>
+                                        <field name="plafond_effectif"
+                                               string="Plafond (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"/>
+                                        <field name="honor_effectif"
+                                               string="Honoraire (DT)"
+                                               readonly="1"
+                                               digits="[16,3]"
+                                               class="fw-bold text-success"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /row -->
+
+                    <!-- Récapitulatif total -->
+                    <separator string="Récapitulatif"/>
+                    <group class="mt-2">
+                        <group string="Total Honoraires à transférer (DT)">
+                            <field name="honor_bilan"    string="Honoraires Bilan"    readonly="1" digits="[16,3]"/>
+                            <field name="honor_produit"  string="Honoraires Produits" readonly="1" digits="[16,3]"/>
+                            <field name="honor_effectif" string="Honoraires Effectif" readonly="1" digits="[16,3]"/>
+                        </group>
+                    </group>
+
+                </sheet>
+
+                <footer>
+                    <button name="action_validate"
+                            type="object"
+                            string="✅ OK - Transférer vers la facture"
+                            class="btn-primary"
+                            confirm="Voulez-vous valider le calcul selon le barème de CAC et le transférer vers la facture ?"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action du wizard (appelée depuis account.move) -->
+    <record id="action_bareme_honoraire_wizard" model="ir.actions.act_window">
+        <field name="name">Barème Honoraire CAC</field>
+        <field name="res_model">bareme.honoraire.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

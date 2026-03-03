@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_move_form_bareme_honoraire" model="ir.ui.view">
+        <field name="name">account.move.form.bareme.honoraire</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Boutons stat_button -->
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_open_bareme_honoraire"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-calculator"
+                        invisible="move_type not in ['out_invoice', 'out_refund']">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Barème</span>
+                        <span class="o_stat_text">Honoraire CAC</span>
+                    </div>
+                </button>
+                <button name="action_print_note_honoraire"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-print"
+                        invisible="not bareme_applied">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Note</span>
+                        <span class="o_stat_text">d'Honoraire</span>
+                    </div>
+                </button>
+            </xpath>
+
+            <!-- Section données barème + timbre fiscal -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Paramètres Facture"
+                       invisible="move_type not in ['out_invoice', 'out_refund']"
+                       class="mt-2">
+                    <field name="timbre_fiscal" string="Timbre Fiscal (DT)"/>
+                </group>
+
+                <group string="Données Barème CAC"
+                       invisible="not bareme_applied"
+                       class="mt-3">
+                    <group string="Bilan">
+                        <field name="bareme_total_bilan"    string="Total Net Bilan (MDT)"  readonly="1"/>
+                        <field name="bareme_amortissements" string="Amortissements (MDT)"    readonly="1"/>
+                        <field name="bareme_provisions"     string="Provisions (MDT)"        readonly="1"/>
+                        <field name="bareme_total_brut"     string="Total Brut Bilan (MDT)" readonly="1"/>
+                        <field name="bareme_plafond_bilan"  string="Plafond Bilan (DT)"      readonly="1"/>
+                        <field name="bareme_honor_bilan"    string="Honoraire Bilan (DT)"    readonly="1"/>
+                    </group>
+                    <group string="Produits et Effectif">
+                        <field name="bareme_total_produit"    string="Total Produit (MDT)"     readonly="1"/>
+                        <field name="bareme_plafond_produit"  string="Plafond Produit (DT)"    readonly="1"/>
+                        <field name="bareme_honor_produit"    string="Honoraire Produit (DT)"  readonly="1"/>
+                        <field name="bareme_total_effectif"   string="Effectif Moyen"          readonly="1"/>
+                        <field name="bareme_plafond_effectif" string="Plafond Effectif (DT)"   readonly="1"/>
+                        <field name="bareme_honor_effectif"   string="Honoraire Effectif (DT)" readonly="1"/>
+                    </group>
+                    <field name="bareme_applied" invisible="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

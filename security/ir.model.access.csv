@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bareme_honoraire_wizard_user,bareme.honoraire.wizard.user,mozaiss_honoraires.model_bareme_honoraire_wizard,account.group_account_user,1,1,1,1
+access_bareme_honoraire_wizard_manager,bareme.honoraire.wizard.manager,mozaiss_honoraires.model_bareme_honoraire_wizard,account.group_account_manager,1,1,1,1

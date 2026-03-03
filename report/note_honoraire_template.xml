@@ -1,0 +1,133 @@
+<odoo>
+    <template id="report_note_honoraire_template">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page" style="font-family: 'Times New Roman', serif; font-size: 14pt; padding: 50px 60px; color: #000; min-height: 297mm;">
+
+                    <!-- Espace en haut -->
+                    <div style="height: 100px;"/>
+
+                    <!-- En-tête droite -->
+                    <div style="text-align: right; margin-bottom: 50px; line-height: 1; font-size: 13pt;">
+                        <span t-esc="o.company_id.city"/>, le <span t-esc="o.invoice_date.strftime('%d-%m-%Y') if o.invoice_date else ''"/>
+                        <br/><br/>
+                        <strong><span t-esc="'/'.join(o.name.split('/')[1:])"/> - <span t-esc="o.partner_id.name"/></strong>
+                        <br/>
+                        <strong><span t-esc="o.partner_id.city"/></strong>
+                        <br/>
+                        <strong><span t-esc="o.partner_id.function"/></strong>
+                        <br/>
+                        <strong>MF : <span t-esc="o.partner_id.vat"/></strong>
+                    </div>
+
+                    <!-- Titre encadré -->
+                    <div style="text-align: center; margin-bottom: 50px;">
+                        <table style="width: 95%; margin: auto; border: 2.5px solid #000; border-collapse: collapse;">
+                            <tr>
+                                <td style="text-align: center; font-weight: bold; font-size: 16pt; padding: 14px;">
+                                    Note d'honoraires N° <span t-esc="'/'.join(o.name.split('/')[1:])"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div style="height: 40px;"/>
+
+                    <!-- Tableau des montants -->
+                    <div style="text-align: center; margin-bottom: 50px;">
+                        <table style="width: 95%; margin: auto; border-collapse: collapse; border: 1.5px solid #000; font-size: 14pt;">
+                            <thead>
+                                <tr style="background-color: #f8f8f8;">
+                                    <th style="border: 1.5px solid #000; padding: 12px 20px; text-align: center; font-weight: bold; font-size: 14pt;">
+                                        Objet
+                                    </th>
+                                    <th style="border: 1.5px solid #000; padding: 12px 20px; text-align: center; font-weight: bold; font-size: 14pt;">
+                                        Montant (en DT)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <!-- Montant HT -->
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: center;">Montant H.T</td>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: right;">
+                                        <span t-esc="'{:,.2f}'.format(o.amount_untaxed).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- TVA -->
+                                <t t-set="tva_amount" t-value="o.amount_total - o.amount_untaxed"/>
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: center;">T.V.A (19%)</td>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: right;">
+                                        <span t-esc="'{:,.2f}'.format(tva_amount).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- Montant TTC -->
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: center;">Montant TTC</td>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: right;">
+                                        <span t-esc="'{:,.3f}'.format(o.amount_total).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- Timbre Fiscal -->
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: center;">Timbre Fiscal</td>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: right;">1,000</td>
+                                </tr>
+
+                                <!-- TOTAL -->
+                                <tr style="background-color: #f0f0f0;">
+                                    <td style="border: 1.5px solid #000; padding: 10px 20px; text-align: center; font-weight: bold;">TOTAL</td>
+                                    <td style="border: 1.5px solid #000; padding: 10px 20px; text-align: right; font-weight: bold;">
+                                        <span t-esc="'{:,.3f}'.format(o.amount_total + 1.0).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- Retenue à la source -->
+                                <tr>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: center;">Retenue à la source (1%)</td>
+                                    <td style="border: 1px solid #000; padding: 10px 20px; text-align: right;">
+                                        <span t-esc="'{:,.3f}'.format(o.amount_untaxed * 0.01).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- Net à payer -->
+                                <tr style="background-color: #e5e5e5;">
+                                    <td style="border: 2px solid #000; padding: 12px 20px; text-align: center; font-weight: bold;">Net à payer</td>
+                                    <td style="border: 2px solid #000; padding: 12px 20px; text-align: right; font-weight: bold; font-size: 15pt;">
+                                        <span t-esc="'{:,.3f}'.format(o.amount_total + 1.0 - o.amount_untaxed * 0.01).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="height: 30px;"/>
+
+                    <!-- Montant en lettres -->
+                    <div class="row mb-5">
+                            <div class="col-12">
+                                <p>
+                                    <strong>Arrêtée la présente facture à la somme de :</strong>
+                                    <t t-esc="o._montant_en_lettres(o.amount_total + o.timbre_fiscal)"/>
+                                </p>
+                            </div>
+                        </div>
+
+                    <div style="height: 60px;"/>
+
+                    <!-- Signature -->
+                    <div style="text-align: center; font-size: 14pt;">
+                        <strong>Signature et cachet</strong>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

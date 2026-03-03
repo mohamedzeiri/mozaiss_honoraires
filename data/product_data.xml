@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_tmpl_honor_bilan" model="product.template">
+        <field name="name">Honoraires Bilan CAC</field>
+        <field name="type">service</field>
+        <field name="invoice_policy">order</field>
+        <field name="description_sale">Honoraires calculés selon le barème CAC - critère Bilan</field>
+    </record>
+
+    <record id="product_tmpl_honor_produit" model="product.template">
+        <field name="name">Honoraires Produits CAC</field>
+        <field name="type">service</field>
+        <field name="invoice_policy">order</field>
+        <field name="description_sale">Honoraires calculés selon le barème CAC - critère Produits TTC</field>
+    </record>
+
+    <record id="product_tmpl_honor_effectif" model="product.template">
+        <field name="name">Honoraires Effectif Moyen CAC</field>
+        <field name="type">service</field>
+        <field name="invoice_policy">order</field>
+        <field name="description_sale">Honoraires calculés selon le barème CAC - critère Effectif Moyen</field>
+    </record>
+</odoo>
