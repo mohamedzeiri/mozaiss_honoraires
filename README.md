@@ -154,14 +154,10 @@ mozaiss_honoraires/
 | - Total Net Bilan | 5 000 MDT | - |
 | - Amortissements | 500 MDT | - |
 | - Provisions | 200 MDT | - |
-| - **Total Brut Bilan** | **5 700 MDT** | **Honoraire : 1 042,248 DT** |
+| - **Total Brut Bilan** | **5 700 MDT** | **Honoraire : 1 043,28 DT** |
 | **Produits TTC** | 1 000 MDT | **Honoraire : 463,680 DT** |
-| **Effectif Moyen** | 100 personnes | **Honoraire : 657,880 DT** |
-| **TOTAL HT** | - | **2 163,808 DT** |
-
-### Validation
-
-✅ Résultats de calcul identiques au système Mozaiss original (précision : 0,001 DT)
+| **Effectif Moyen** | 100 personnes | **Honoraire : 656,880 DT** |
+| **TOTAL HT** | - | **2 163,84 DT** |
 
 ---
 
