@@ -99,7 +99,7 @@
                                 <tr style="background-color: #e5e5e5;">
                                     <td style="border: 2px solid #000; padding: 12px 20px; text-align: center; font-weight: bold;">Net à payer</td>
                                     <td style="border: 2px solid #000; padding: 12px 20px; text-align: right; font-weight: bold; font-size: 15pt;">
-                                        <span t-esc="'{:,.3f}'.format(o.amount_total + 1.0 - o.amount_untaxed * 0.01).replace(',', ' ')"/>
+                                        <span t-esc="'{:,.3f}'.format(o.amount_total + 1.0).replace(',', ' ')"/>
                                     </td>
                                 </tr>
 
